@@ -1,0 +1,16 @@
+{% load template_filters %}
+
+{# 侧边栏热门标签集合 #}
+{% for collection in collections %}
+    <div style="padding: .5rem 1.75rem 0 1.75rem;">
+        <p class="no-padding-margin" style="font-size: 0.8rem;">{{ collection.title }}</p>
+        <div>
+            {% for tag in collection.tags.all|my_slice:show_count %}
+                <a class="tag-a-btn-style no-text-decoration" href="{% url 'tag-book' tag.id %}">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+        {% if not forloop.last %}
+            <hr style="border: none; border-top: 1px dashed #ddd; margin: .2rem 0">
+        {% endif %}
+    </div>
+{% endfor %}

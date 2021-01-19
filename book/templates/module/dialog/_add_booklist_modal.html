@@ -1,0 +1,26 @@
+<div id="addBooklistModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="" class="modal-title">创建书单</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+               <!-- 添加理由(书的评语) -->
+                <div id="addBooklistModalDiv" style="margin-top: 0.5rem;">
+                    <input id="addBooklistModalTitleInput" type="text" placeholder="书单标题" style="display: block; width: 100%; margin-bottom: 1rem; font-size: 0.8rem;">
+                    <label class="no-padding-margin" style="width: 100%;">
+                        <textarea id="addBooklistModalSummaryTextarea" placeholder="告诉大家你推荐的理由吧" style="width: 100%;" rows="5"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="javascript: actionAddBooklist();" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

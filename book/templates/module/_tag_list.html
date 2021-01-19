@@ -1,0 +1,17 @@
+{# 头部标签 #}
+{# 显示的标签 #}
+{% for tag in book_tag_first %}
+    <a href="{% url 'tag-booklist' tag.id %}" id="{{ tag.id }}" class="link-a">{{ tag.name }}</a>
+{% endfor %}
+
+{# 更多的标签 #}
+{% if book_tag_second|length > 0 %}
+    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="link-a">更多</a>
+    <div id="collapseOne" class="panel-collapse collapse">
+        <div class="panel-body no-padding-margin">
+            {% for tag in book_tag_second %}
+                <a href="{% url 'tag-booklist' tag.id %}"  id="{{ tag.id }}" class="link-a">{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

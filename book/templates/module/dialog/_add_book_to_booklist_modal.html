@@ -1,0 +1,86 @@
+<style>
+    .CheckItem {
+        position: relative;
+        display: block;
+        margin-bottom: 12px;
+    }
+
+    .CheckItem-box {
+        overflow: hidden;
+        position: relative;
+        padding: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        transition: border-color .2s ease-out;
+    }
+
+    .CheckItem-input {
+        position: absolute;
+        z-index: -1;
+        opacity: 1;
+        margin: 3px 3px 3px 4px;
+        box-sizing: border-box;
+        user-select: text;
+        color: initial;
+        text-transform: none;
+        text-indent: 0;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        font: 13.3333px Arial;
+    }
+
+    .CheckItem-input:checked + .CheckItem-box, .CheckItem:hover .CheckItem-box {
+        border-color: #175199;
+        background-color: #f5f8fa;
+    }
+
+    .Favlists-itemNameText {
+        overflow: hidden;
+        font-weight: 300;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 14px;
+        line-height: 1.5;
+        width: 100%;
+    }
+
+    .check-item-box-container {
+        max-height: 236px;
+        min-height: 60px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+</style>
+
+<div id="addBookToOtherBooklistModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content add-book-to-other-booklist">
+            <div class="modal-header">
+                <h5 id="" class="modal-title">添加书籍到书单</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding-bottom: 0;">
+                <div id="addBookToOtherBooklistModalBooklists" class="check-item-box-container">
+                    <div style="text-align: center; vertical-align: middle;">
+                        <span style="color: #aaaaaa;">你暂时还未创建书单</span>
+                    </div>
+                </div>
+
+                <!-- 添加理由(书的评语) -->
+                <div id="addBookToOtherBooklistModalRemarkDiv" style="margin-top: 0.5rem; display: None">
+                    <label class="no-padding-margin" style="width: 100%;">
+                        <textarea id="addBookToOtherBooklistModalBookRemark" placeholder="告诉大家你推荐的理由吧" style="width: 100%;" rows="5"></textarea>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button onclick="confirmAddBookToOtherBooklist();" type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+    <input style="display: none;" id="addBookToOtherBooklistModalBookId" value="">
+</div>

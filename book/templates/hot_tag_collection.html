@@ -1,0 +1,38 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div style="display: flex; margin: auto;">
+                <div style="border: solid 1px rgba(232, 237, 241, 1);
+                    border-radius: 3px 3px 0 0;
+                    background-color: white;
+                    max-width: 35rem;
+                    min-width: 30rem;
+                    margin: 1rem auto 3rem;
+                    padding: 0;">
+                    {# 列表说明 #}
+                    <p style="font-size: 1.125rem; font-weight: 700; padding: 1rem 1.75rem 0 1.75rem">所有热门标签</p>
+                    <hr>
+
+                    {# 热门标签列表 #}
+                    <div style="padding-bottom: 1rem;">
+                        {% show_hot_tag_collections %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

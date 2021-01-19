@@ -1,0 +1,149 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+{% load template_filters %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/book/index.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <style>
+        .tip-div {
+            line-height: 1.1rem;
+        }
+    </style>
+    <div class="container"
+         style="border: solid 1px rgba(232, 237, 241, 1);
+                border-radius: 3px 3px 0 0;
+                background-color: white;
+                max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 0 0 1rem 0;">
+
+        {# 书籍详情 #}
+        <div style="padding: 2rem 2rem 1rem 2rem;">
+            <div>
+                <h1 class="display-4" style="font-size: 1.6rem; font-weight: 600; display: inline-block;">{{ book.name }}</h1>
+                <a class="link-a" href="javascript: addBookToOtherBooklist('{{ book.id }}');"
+                   style="margin-left: 0.5rem;">添加至书单</a>
+                <div style="display: inline-block; float: right;">
+                    <span>豆瓣评分</span>
+                    <span>{{ book.score.score }}</span>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <img src="{{ book.pic }}" class="book-img" style="margin-top: 3px;">
+                <div style="padding-left: 8px;">
+                    {# 作者 #}
+                    {% if book.author.all|length > 0 %}
+                        <div class="tip-div">
+                            <span class="tip-span">作者: </span>
+                            {% for author in book.author.all %}
+                                <a class="link-a" href="#">{{ author.name }}</a>
+                            {% endfor %}
+                            <br>
+                        </div>
+                    {% endif %}
+
+                    {% if book.info.pages and not book.info.pages|is_none_or_blank %}
+                        <div class="tip-div">
+                            <span class="tip-span">页数: </span>
+                            <span class="tip-span-value">{{ book.info.pages }}</span>
+                            <br>
+                        </div>
+                    {% endif %}
+
+                    {% if book.info.price and not book.info.price|is_none_or_blank %}
+                        <div class="tip-div">
+                            <span class="tip-span">定价: </span>
+                            <span class="tip-span-value">{{ book.info.price }}</span>
+                            <br>
+                        </div>
+                    {% endif %}
+
+                    {% if book.info.pubdate and not book.info.pubdate|is_none_or_blank %}
+                        <div class="tip-div">
+                            <span class="tip-span">出版年份: </span>
+                            <span class="tip-span-value">{{ book.info.pubdate }}</span>
+                            <br>
+                        </div>
+                    {% endif %}
+
+                    {% if book.info.publisher and not book.info.publisher|is_none_or_blank %}
+                        <div class="tip-div">
+                            <span class="tip-span">出版社: </span>
+                            <span class="tip-span-value">{{ book.info.publisher }}</span>
+                            <br>
+                        </div>
+                    {% endif %}
+                    {% if book.info.isbn and not book.info.isbn|is_none_or_blank %}
+                        <div class="tip-div">
+                            <span class="tip-span">ISBN: </span>
+                            <span class="tip-span-value">{{ book.info.isbn }}</span>
+                            <br>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            {# 标签 #}
+            <div style="margin-top: 8px;">
+                {% for tag in book.tags.all %}
+                    <a class="link-a" href="{% url 'tag-book' tag.id %}" style="font-size: 0.8rem; margin-right: 0.5rem;">#{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+
+        {# 简介 #}
+        {% if book.summary and not book.summary|is_none_or_blank %}
+            <div style="padding: 0 2rem;">
+                <p style="font-size: 1.3rem; font-weight: 500;">内容简介</p>
+                <p>
+                    {% autoescape off %}
+                        {{ book.summary|change_line_break_to_br }}
+                    {% endautoescape %}
+                </p>
+            </div>
+        {% endif %}
+
+        {# 目录 #}
+        {% if book.info.catalog and not book.info.catalog|is_none_or_blank %}
+            <hr>
+            <div style="padding: 0 2rem;">
+                <p style="font-size: 1.3rem; font-weight: 500;">目录</p>
+                {% autoescape off %}
+                    {{ book.info.catalog|change_line_break_to_br }}
+                {% endautoescape %}
+            </div>
+        {% endif %}
+
+        {# 作者简介 #}
+        {% if book.author.all|length > 0 %}
+            <hr>
+            <div style="padding: 0 2rem;">
+                <p style="font-size: 1.3rem; font-weight: 500;">作者简介</p>
+                {% for author in book.author.all %}
+                    <p style="font-size: 1rem; font-weight: 600;">{{ author.name }}</p>
+                    {% autoescape off %}
+                        {{ author.description|change_line_break_to_br }}
+                    {% endautoescape %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {# 添加书籍模态框 #}
+    {% include "module/dialog/_add_book_to_booklist_modal.html" %}
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'book/js/add-book-to-booklist.js' %}"></script>
+{% endblock %}

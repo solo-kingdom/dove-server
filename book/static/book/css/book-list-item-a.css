@@ -1,0 +1,48 @@
+/*
+File: book-list-item.css
+Author: szhkai@qq.com
+*/
+
+.book-list-item {
+    background-color: white;
+    padding: 0.5rem;
+    display: flex;
+    overflow: hidden;
+}
+
+.book-list-item img {
+    max-width: 90px;
+    max-height: 133px;
+    min-width: 90px;
+    min-height: 133px;
+    width: 90px;
+    height: 133px;
+    margin: 5px 0 5px 5px;
+}
+
+.book-list-item-info {
+    vertical-align: top;
+    padding-left: 15px;
+    overflow: hidden;
+}
+
+.book-list-item-info h1 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.book-list-item .book-list-item-info .book-score {
+    line-height: 18px;
+}
+
+.book-list-item .book-list-item-info .book-score span {
+    font-size: 0.5rem;
+    color: #999999;
+}
+
+.book-author {
+    font-size: 0.5rem;
+}

@@ -1,0 +1,56 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'book/css/booklist-list.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+
+    <div class="container" style="max-width: 40rem; padding: 0; margin: 1rem auto 2rem auto;">
+        <h1 class="display-4" style="display: inline-block; font-size: 3rem;">{{ user.nickname }}</h1>
+        <span>的个人主页</span>
+    </div>
+
+    <div class="container"
+         style="border: solid 1px rgba(232, 237, 241, 1);
+                border-radius: 3px 3px 0 0;
+                background-color: white;
+                max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 0;">
+
+        {# 列表说明 #}
+        <p style="padding: 1rem 1.75rem 0 1.75rem">
+            <span style="font-size: 1.125rem; font-weight: 700;">创建的书单</span>
+            {% if request.user.is_authenticated and request.user.id == user.id %}<a class="link-a" href="javascript: triggerAddBooklist();" style="margin-left: 0.5rem;">添加</a> {% endif %}
+        </p>
+        <hr>
+
+        {# 书单列表 #}
+        {% include page_template %}
+{#        <div id="no-more-items" style="display: none;">没有更多记录</div>#}
+
+    </div>
+
+    {# 创建书单modal #}
+    {% include 'module/dialog/_add_booklist_modal.html' %}
+
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'js/lib/el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({paginateOnScroll: true });
+    </script>
+    <script src="{% static 'book/js/add-booklist-modal.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'book/css/booklist-list.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/book-list-item-a.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <div class="container"
+         style="border: solid 1px rgba(232, 237, 241, 1);
+                border-radius: 3px 3px 0 0;
+                background-color: white;
+                max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 0;">
+        {# 列表说明 #}
+        <div style="padding: 1rem 1.75rem 0 1.75rem;">
+            <p style="font-size: 1.125rem; font-weight: 700; display: inline-block" class="no-padding-margin">
+                <span>搜索{{ search_type_cur.tip }}: </span>
+                <span style="font-size: 1rem; font-weight: 400;">{{ search_keyword }}</span>
+            </p>
+            <div style="vertical-align: bottom; display:table-cell;">
+                {% for recommend in search_type_recommend %}
+                    <a class="link-a" style="margin-right: 8px;" href="javascript: action_search('{{ recommend.name }}');">查看相关{{ recommend.tip }}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+
+        {# 书单列表 #}
+        {# module/_booklist_list.html / module/_book_list.html #}
+        {% include page_template %}
+        <p style="width: 100%; text-align: center; color: #aaaaaa; font-size: 0.8rem;">没有更多记录</p>
+    </div>
+
+    {% include "module/dialog/_add_book_to_booklist_modal.html" %}
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'js/lib/el-pagination.js' %}"></script>
+    <script src="{% static 'book/js/add-book-to-booklist.js' %}"></script>
+    <script>
+        var search_keyword_input = $('#search-keyword-input');
+        var search_type_input = $('#search-type-input');
+
+        function action_search(search_type) {
+            search_type_input.attr('value', search_type);
+            search_keyword_input.attr('value', '{{ search_keyword }}');
+            $('#search-form').submit();
+        }
+
+        $.endlessPaginate({paginateOnScroll: true });
+    </script>
+{% endblock %}

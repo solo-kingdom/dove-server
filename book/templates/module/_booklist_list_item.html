@@ -1,0 +1,44 @@
+{# 书单列表 -> item #}
+
+<div class="booklist-item">
+    {# 书单名称 #}
+    <div class="item-title-container">
+        <a class="item-title-a item-title-a-md" href="{% url 'booklist_detail' booklist.id %}">{{ booklist.name }}</a>
+    </div>
+
+    <div style="display: flex; overflow: hidden;">
+        {# 图片 #}
+        <div class="d-inline-block align-top" style="height: 135px;">
+            <img style="width: 90px; height: 133px;"
+                 src="{{ booklist.books.all.0.pic }}"/>
+        </div>
+
+        {# 图片右侧信息 #}
+        <div class="d-inline-block booklist-item-books">
+            {# 书单前 n 个书籍 #}
+            <div class="booklist-content" style="height: 135px;">
+                {% for book in booklist.books.all|slice:":3" %}
+                    <div style="font-size: 1em; margin: 0; padding: 1px 0 1px 0;">
+                        <a class="link-a" href="{% url 'book_detail' book.id %}">{{ book.name }}</a>
+                        <span>(</span>
+                        {% for author in book.author.all %}
+                            <a class="link-a" href="javascript: void(0);">{{ author.name }}</a>
+                        {% endfor %}
+                        <span>)</span>
+                    </div>
+                {% endfor %}
+
+                <div class="clearfix" style="min-height: 10px;"></div>
+
+                {# 书单前 n 个标签 #}
+                <div class="booklist-tags">
+                    {% for tag in booklist.tags.all|slice:":5" %}
+                        <a href="{% url 'tag-booklist' tag.id %}" class="link-a">#{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>

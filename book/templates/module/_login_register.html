@@ -1,0 +1,35 @@
+{# 登录注册模态框 #}
+
+<div class="modal fade" id="loginRegisterModelBox" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalLabel">邮箱登录 / 注册</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="padding: 1rem 5rem 3rem 5rem;">
+                <!-- 错误提示 -->
+                <div style="padding-left: 0.1rem; height: 25px;">
+                    <label id="lrModalErrorTipElement" style="color: red; font-size: 0.5rem;"></label>
+                </div>
+                <form>
+                    {% csrf_token %}
+                    <div class="form-group" style="margin-bottom: 0.2px;">
+                        <input type="text" class="form-control" id="inputEmail" placeholder="邮箱">
+                        <div class="clearfix" style="height: 1rem;"></div>
+                        <input type="password" class="form-control" id="inputPassword" placeholder="密码">
+                    </div>
+                </form>
+                <div class="tip-a" style="margin-bottom: 1rem; padding-left: 0.2rem;">
+                    <a id="registerOrLoginTipElement" href="javascript: void(0);">还没有账号,点击注册</a>
+                </div>
+                <div class="text-center register-btn">
+                    <a id="registerOrLoginBtnElement" href="javascript: void(0);" style="padding: 0.3rem 3rem; width: 100%; display: inline-block;">登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+{% load template_filters %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'book/css/booklist-detail.css' %}">
+    <link rel="stylesheet" href="{% static 'book/css/book-list-item-a.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <div class="container"
+         style="max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 0;">
+
+        <label for="booklistIdHiddenInput"></label>
+        <input type="text" style="display: none" id="booklistIdHiddenInput" value="{{ booklist.id }}">
+
+        {# 书单头部信息 #}
+        <div class="booklist-detail-info">
+            {# 书单名称 #}
+            <h1 id="booklistNameElement" class="display-4">{{ booklist.name }}</h1>
+            {# 删除修改 #}
+            {% if booklist.user.id == request.user.id %}
+                <div class="edit-link">
+                    <a class="link-a" href="javascript: editBookListTrigger();">修改</a>
+                    <a class="link-a" href="javascript: deleteBookList('{{ booklist.id }}');">删除</a>
+                    <a class="link-a" href="javascript: addBookToBooklist();">添加书籍</a>
+                </div>
+            {% endif %}
+
+            {# 信息 #}
+            <div class="booklist-add-info">
+                <a href="{% url 'user-page' booklist.user.id %}" class="link-a">{{ booklist.user.nickname }}</a>&nbsp;&nbsp;
+                <span>{{ booklist.create_date }}创建</span>&nbsp;&nbsp;&nbsp;
+                <span>{{ booklist.update_date }}更新</span>
+            </div>
+
+            {# 简介 #}
+            <p id="booklistSummaryElement" class="summary-text">{% if booklist.summary %}{{ booklist.summary }}{% endif %}</p>
+
+            {% if booklist.user.id == request.user.id %}
+                {# 编辑书单信息框 #}
+                <div id="editBooklistBoxElement" class="edit-booklist" style="display: none;">
+                    <p style="font-size: 0.8rem; color: #888; padding: 0; margin: 0 0 5px 0;">
+                        <span style="color: #66757f;">编辑书单</span>
+                        <span id="errorTipEditBookListElement"
+                              style="color: red; font-size: 0.5rem; margin-left: 10px;"></span>
+                    </p>
+                    <div>
+                        <span style="display: block;">标题</span>
+                        <label style="width: 100%;">
+                            <input id="inputEditBookListTitleElement" type="text" style="width: 100%;">
+                        </label>
+                    </div>
+                    <p style="margin-bottom: 0;">
+                        <span>简介</span>
+                        <label style="width: 100%; margin: 0; padding: 0;">
+                            <textarea id="textareaBookList" rows="5"
+                                      style="width: 100%; font-size: 0.5rem; font-weight: 400;"></textarea>
+                        </label>
+                        <a class="link-a"
+                           href="javascript: editBookList('{{ booklist.id }}');"
+                           style="margin: 0 5px 0 5px;">确认</a>
+                        <a class="link-a" href="javascript: editBookListTrigger();">取消</a>
+                    </p>
+                </div>
+            {% endif %}
+        </div>
+
+        {# 书籍列表 #}
+        <div>
+            {% include page_template %}
+            <p style="width: 100%; text-align: center; color: #aaaaaa; font-size: 0.8rem; margin-top: 2rem;">没有更多记录</p>
+        </div>
+
+    </div>
+    {# 添加书籍模态框 #}
+    {% include "module/dialog/_booklist_add_book_modal.html" %}
+    {% include "module/dialog/_add_book_to_booklist_modal.html" %}
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'book/js/booklistdetail.js' %}"></script>
+    <script src="{% static 'book/js/add-book-to-booklist.js' %}"></script>
+    <script src="{% static 'js/lib/el-pagination.js' %}"></script>
+    <script>
+        $.endlessPaginate({paginateOnScroll: true });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,61 @@
+{# 页面右下角图标组; 反馈建议, 返回顶部等 #}
+
+<style>
+    .right-bottom-btn-group {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+        z-index: 99999;
+        -webkit-transition: all .5s;
+        -moz-transition: all .5s;
+        -o-transition: all .5s;
+        transition: all .5s;
+    }
+
+    .right-bottom-btn-group button {
+        background: #e7eaf1;
+        border-radius: 4px;
+        border: none;
+        display: inline-block;
+        font-size: 14px;
+        text-align: center;
+        cursor: pointer;
+        margin: 0;
+        outline: none;
+    }
+</style>
+
+<div class="right-bottom-btn-group" style="display: none;" id="right-bottom-btn-group">
+    <button id="to-top-btn"><i class="fa fa-arrow-up fa-2x" aria-hidden="true" style="color: #a1afc8;"></i></button>
+</div>
+
+<script>
+    // 监听滚动
+    window.onscroll = function(){
+        //获取距离页面顶部的距离
+         var t = document.documentElement.scrollTop || document.body.scrollTop;
+         //获取div元素
+         var rightBottomBtnGroupElement = document.getElementById( "right-bottom-btn-group" );
+         rightBottomBtnGroupElement.style.display = 'block';
+         if( t >= 300 ) { //当距离顶部超过300px时
+            rightBottomBtnGroupElement.style.bottom=20+'px';//使div距离底部30px，也就是向上出现
+         } else { //如果距离顶部小于300px
+            rightBottomBtnGroupElement.style.bottom=-50+'px';//使div向下隐藏
+         }
+    };
+    var goTop = document.getElementById("to-top-btn");
+    var timer=null;
+    goTop.onclick = function(){ //点击图片时触发点击事件
+            timer=setInterval(function(){ //设置一个计时器
+            var ct = document.documentElement.scrollTop || document.body.scrollTop; //获取距离顶部的距离
+            ct = ct * 0.95;
+            if(ct < 5){
+                 window.scrollTo(0,0);//移动到顶部
+                 clearInterval(timer);//清除计时器
+            }
+            else{
+                 window.scrollTo(0, ct); //向上移动
+            }
+        }, 10);//隔10ms执行一次前面的function，展现一种平滑滑动效果
+    }
+</script>

@@ -1,0 +1,26 @@
+/*
+ File: booklist-list.css
+ Author: szhkai@qq.com
+ */
+
+ /*_booklist_list_item.html*/
+
+.booklist-item {
+    font-weight: 300;
+    padding: 0.3rem 1.75rem 0.3rem 1.75rem;
+}
+
+.booklist-item-books {
+    font-size: 0.75rem;
+    color: #37a;
+    overflow: hidden;
+}
+
+.booklist-content {
+    padding: 0 0 0 5px;
+}
+
+.booklist-content .booklist-tags {
+    position: relative;
+    bottom: 0;
+}

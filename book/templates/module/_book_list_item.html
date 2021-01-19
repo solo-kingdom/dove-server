@@ -1,0 +1,39 @@
+{# 书籍列表 -> item #}
+{# 引入 book-list-item.css #}
+
+<div class="book-list-item">
+    <img src="{{ book.pic }}">
+    <div class="book-list-item-info">
+        {# 书名 #}
+        <div>
+            <div class="item-title-container" style="display: inline; overflow: hidden;">
+                <a class="item-title-a" href="{% url 'book_detail' book.id %}">{{ book.name }}</a>
+            </div>
+            <a class="link-a" href="javascript: addBookToOtherBooklist('{{ book.id }}');">添加至书单</a>
+        </div>
+        <div class="book-score">
+            <span>豆瓣评分</span>
+            <span>{{ book.score.score }}</span>
+        </div>
+        <div class="book-author">
+            {% for author in book.author.all %}
+                <a class="link-a" href="javascript:void(0);">{{ author.name }}</a>
+            {% endfor %}
+        </div>
+
+        {# 简介 #}
+        <p class="summary-text">
+            {% if book.summary %}
+                {{ book.summary|truncatechars:150 }}
+                {% if book.summary|length > 150 %}<a class="link-a" href="{% url 'book_detail' book.id %}">...</a>{% endif %}
+            {% endif %}
+        </p>
+
+        {# 标签 #}
+        <div>
+            {% for tag in book.tags.all|slice:":5" %}
+                <a class="link-a" href="{% url 'tag-book' tag.id %}">#{{ tag.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>

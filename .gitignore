@@ -1,0 +1,33 @@
+# media文件夹
+media
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+
+# 豆瓣账户
+douban_account.ini
+
+# pycharm 工程文件
+book/__pycache__/
+book/migrations/__pycache__/
+book/templatetags/__pycache__/
+book/view/__pycache__/
+cloudlibrary/__pycache__/
+spider/__pycache__/
+spider/douban/douban/__pycache__/
+spider/douban/douban/spiders/__pycache__/
+spider/migrations/__pycache__/
+
+# scrapy
+httpcache
+
+# log
+*.log
+*.tmp
+log/*
+
+spider/douban/api/sys
+spider/douban/api/threading

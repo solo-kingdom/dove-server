@@ -1,0 +1,97 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/book/index.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <style>
+        .user-profile-table {
+            font-size: 1rem;
+        }
+
+        .user-profile-table td {
+            min-width: 80px;
+            padding: 0.5rem 0.5rem;
+            vertical-align: top;
+        }
+
+        .table-item-key {
+            text-align: right;
+        }
+
+        .table-item-value {
+
+        }
+    </style>
+    <div class="container"
+         style="border: solid 1px rgba(232, 237, 241, 1);
+                border-radius: 3px 3px 0 0;
+                background-color: white;
+                max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 2rem;">
+
+        {# 列表说明 #}
+        <table class="user-profile-table">
+            <tr>
+                <td class="table-item-key">用户名</td>
+                <td class="table-item-value">
+                    <div style="display: flex;">
+                        <input id="nicknameInputElement" type="text" value="{{ request.user.nickname }}" style="min-width: 100px; width: 300px;">
+{#                        <a href="#" class="link-a" style="margin-left: 0.5rem; line-height: 1.5rem;">修改</a>#}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-item-key">邮箱</td>
+                <td class="table-item-value">{{ request.user.email }}</td>
+            </tr>
+            <tr>
+                <td class="table-item-key">密码</td>
+                <td class="table-item-value">
+                    <div>
+                        <label>
+                            <input type="password"
+                                   id="passwordInputElement"
+                                   placeholder="不更改密码无需输入"
+                                   style="min-width: 100px; width: 300px; margin-bottom: 0.5rem;">
+{#                            <span class="tip-span">原密码</span>#}
+                            <a href="#" class="link-a" style="margin-left: 0.5rem; line-height: 1.5rem;"
+                               data-toggle="collapse" data-target="#ediePasswordCollapse" aria-expanded="false" aria-controls="ediePasswordCollapse">修改</a>
+                        </label>
+                        <div class="collapse" id="ediePasswordCollapse">
+                            <label>
+                                <input type="password"
+                                       id="newPasswordInputElement"
+                                       placeholder="新密码"
+                                       style="min-width: 100px; width: 300px; margin-bottom: 0.5rem;">
+                            </label>
+                            <label>
+                                <input type="password"
+                                       id="newPasswordRepeatInputElement"
+                                       placeholder="重复新密码"
+                                       style="min-width: 100px; width: 300px; margin-bottom: 0.5rem;">
+                            </label>
+                        </div>
+                    </div>
+                    <a href="javascript: actionUpdateProfile();" class="link-a" style="font-size: 1rem;">确认修改</a>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'book/js/user-profile.js' %}"></script>
+{% endblock %}

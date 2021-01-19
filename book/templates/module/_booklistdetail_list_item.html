@@ -1,0 +1,54 @@
+{# 书单详情页 书籍列表 记录 #}
+{% load template_filters %}
+
+<div id="booklistItemContainer{{ book.id }}" class="booklist-detail-list-item">
+    {# 书籍信息 #}
+    {% include 'module/_book_list_item.html' %}
+
+    {# 评语 #}
+    <div class="book-remark">
+        <div id="updateBookRemarkDiv{{ book.id }}"
+             {% if not remark or remark.content|is_none_or_blank %}
+                style="display: none; margin-top: 0.8rem;"
+             {% else %}
+                style="margin-top: 0.8rem;"
+             {% endif %}>
+            <p>
+                <span style="font-size: 0.8rem; color: #888;">评语:</span>
+                <span id="bookRemarkAlready{{ book.id }}">{{ remark.content }}</span>
+            </p>
+
+            {% if booklist.user.id == request.user.id %}
+                {# 编辑评语 #}
+                <div style="text-align: right; min-width: 80px;">
+                    <span style="font-size: 0.5rem;color: #888;">{{ remark.update_date }}</span>
+                    <a class="link-a" href="javascript: editBookRemarkTrigger({{ book.id }});">修改</a>
+                    <a class="link-a" href="javascript: deleteBookFromBooklist('{{ book.id }}', '{{ booklist.id }}');">删除</a>
+                </div>
+            {% endif %}
+        </div>
+        {% if booklist.user.id == request.user.id %}
+            <div id="addBookRemarkDiv{{ book.id }}" {% if remark and not remark.content|is_none_or_blank %}style="display: none;"{% endif %}>
+                <div style="text-align: right; min-width: 80px; margin-top: 0.8rem;">
+                    <a class="link-a" href="javascript: editBookRemarkTrigger({{ book.id }});">添加评语</a>
+                    <a class="link-a" href="javascript: deleteBookFromBooklist('{{ book.id }}', '{{ booklist.id }}');">删除</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <div id="block-book-remark-{{ book.id }}" style="display: none;">
+        <p style="font-size: 0.8rem; color: #888; padding: 0; margin: 0 0 5px 0;">
+            <span>编辑评语:</span>
+            <span id="errorTipBookRemark{{ book.id }}" style="color: red; font-size: 0.5rem; margin-left: 10px;"></span>
+        </p>
+        <p>
+            <label style="width: 100%; margin: 0; padding: 0;">
+                <textarea id="textarea-book-remark-{{ book.id }}" rows="5" style="width: 100%; font-size: 0.5rem; font-weight: 400;"></textarea>
+            </label>
+            <a class="link-a"
+               href="javascript: editBookRemark('{{ booklist.id }}', '{{ book.id }}', '{{ remark.id }}');"
+               style="margin: 0 5px 0 5px;">确认</a>
+            <a class="link-a" href="javascript: editBookRemarkTrigger({{ book.id }});">取消</a>
+        </p>
+    </div>
+</div>

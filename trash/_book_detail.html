@@ -1,0 +1,39 @@
+{# 书籍详情 #}
+
+<div class="container-fluit">
+    <div class="jumbotron">
+        <div class="row book-list-item">
+            {# 图片 #}
+            <img class="col-xs-3"
+                 style="max-width: 160px; max-height: 240px;"
+                 src="{{ book.pic }}" />
+            <div class="col-xs-9" style="padding: 0;">
+                <h4 style="margin-top: 0; padding-top: 0;"><a href="{% url 'book_detail' book.id %}">{{ book.name }}</a></h4>
+                <span>作者: </span>
+                {% for author in book.author.all %}
+                    <span>{{ author.name }}</span>
+                {% endfor %}
+
+                <div>
+                    <span>标签: </span>
+                    {# 标签 #}
+                    {% for tag in book.tags.all|slice:":5" %}
+                        <a href="{% url 'tag' tag.id %}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+
+                <div>
+                    <span>简介: </span>
+                    {# 截取前140个字 #}
+                    <span>{{ book.summary }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row pull-right" style="font-size: 0.5em; margin-right: 0; color: #777;">
+            {# 评分和作者 #}
+            <div>
+                <span>豆瓣评分: {{ book.scores.all.0.score }}</span>
+            </div>
+        </div>
+    </div>
+</div>

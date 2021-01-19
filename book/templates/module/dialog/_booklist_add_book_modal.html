@@ -1,0 +1,92 @@
+<style>
+    .add-book-modal-input-block {
+        border: 1px solid rgba(0, 0, 0, .3);
+        border-radius: .25rem;
+        height: 2rem;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        text-align: right;
+        display: flex;
+        padding: 0 0 0 0.3rem;
+    }
+
+    .add-book-modal-input-block input,button,button:focus  {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        font-size: 0.8rem;
+    }
+
+    .add-book-modal-input-block input {
+        border-radius: .25rem 0 0 .25rem;
+    }
+
+    .add-book-modal-input-block button {
+        border-radius: 0 .25rem .25rem 0;
+        cursor: pointer;
+    }
+</style>
+
+<div id="addBookModal" class="modal fade">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="addBookModalTitle" class="modal-title">添加书籍</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="addBookModalSearchBody" class="modal-body" style="margin-bottom: 2rem;">
+                <div>
+                    <p>
+                        <span>请将书籍的豆瓣链接粘贴到下面👇</span>
+                        <span id="addBookModalErrorTip" class="error-span"></span>
+                    </p>
+                    <label class="add-book-modal-input-block">
+                        <input id="addBookModalBookNameInput" type="text" style="width: 100%;">
+                        <button onclick="getBookInfo();" style="min-width: 7rem;">获取书籍信息</button>
+                    </label>
+                </div>
+            </div>
+            <div id="addBookModalInfoBody" style="display: none;">
+                <div class="modal-body">
+                    <div style="display: flex;">
+                        <img id="addBookModalInfoBodyImg" class="book-img" src="" style="margin-top: 5px;"/>
+                        <div class="add-book-modal-book-info">
+                            <div class="item-title">
+                                <a id="addBookModalInfoBodyTitle" href="javascript: void(0);" style="font-size: 1rem;"></a>
+                            </div>
+                            <div style="line-height: 1rem;">
+                                <span class="tip-span">豆瓣评分: </span>
+                                <span id="addBookModalInfoBodyScore" class="tip-span"></span>
+                            </div>
+
+                            {# 作者 #}
+                            <div id="addBookModalInfoBodyAuthor" style="line-height: 1rem;">
+                            </div>
+
+                            {# 简介 #}
+                            <p id="addBookModalInfoBodySummary" class="summary-text">
+                            </p>
+
+                            {# 标签 #}
+                            <div id="addBookModalInfoBodyTag" style="line-height: 1rem;">
+                            </div>
+                        </div>
+                    </div>
+
+                    {# 添加理由(书的评语) #}
+                    <div style="margin-top: 0.5rem;">
+                        <label class="no-padding-margin" style="width: 100%;">
+                            <textarea id="addBookModalBookRemarkTextArea" placeholder="告诉大家你推荐的理由吧" style="width: 100%;" rows="5"></textarea>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="confirmAddBookToBooklist();" type="button" class="btn btn-primary">确定</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+            <input type="text" style="display: none" id="addBookModalBookId">
+        </div>
+    </div>
+</div>

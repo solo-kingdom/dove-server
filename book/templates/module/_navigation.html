@@ -1,0 +1,186 @@
+{% load i18n %}
+{% load templatetags %}
+
+<style>
+    @media screen and (max-width: 991px) {
+        #navbarSupportedContent {
+            padding-top: 1rem;
+        }
+
+        .nav-link-item {
+            width: 100%;
+            text-align: left;
+            padding: 3px 5px;
+        }
+
+        .my-navbar-style {
+            background-color: white;
+        }
+
+        .search-input {
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: .25rem;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .my-navbar-style {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+            padding: 7px;
+            height: 53px;
+        }
+
+        .li-register {
+            margin-left: 1rem;
+        }
+
+        #search-form {
+            margin-right: 3rem;
+        }
+
+
+        .search-input {
+            width: 326px; height: 34px;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: .25rem;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s
+        }
+    }
+
+    #search-form {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .search-input input::placeholder {
+        color: #a1afc8;
+        font-size: 0.875rem;
+    }
+
+    .nav-ul li {
+        font-size: 0.9375rem;
+        font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+    }
+
+    .nav-ul a {
+        white-space:nowrap;
+    }
+
+
+    .search-input button {
+        padding: 5px 8px 5px 8px;
+        border: none;
+        margin-right: 1px;
+        background-color: transparent;
+        outline: none;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 1.25;
+        text-align: center;
+        vertical-align: middle;
+        white-space: nowrap;
+        transition: all .2s ease-in-out;
+        font-size: 1rem;
+    }
+
+    .li-register a {
+        height: 37px;
+        width: 70px;
+        border: 1px solid #339dc3;
+        border-radius: 3px;
+        color: #339dc3;
+        text-align: center;
+    }
+
+    .li-register a:hover {
+        background-color: #f5f8fa;
+    }
+</style>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded navbar-full fixed-top my-navbar-style">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div style="width: 29%;"></div>
+    {# brand #}
+    <a class="navbar-brand" href="{% url 'index' %}" style="font-weight: bold; margin-right: 3rem; max-width: 100px;">书云</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {# 搜索 #}
+        <form id="search-form" action="{% url 'search' %}" method="POST">
+            {% csrf_token %}
+            <div class="input-group search-input">
+                <input id="search-keyword-input" type="text" name="search_keyword"
+                       value="{{ search_keyword }}"
+                       placeholder="搜索书单、书籍"
+                       class="form-control" style="border: none;">
+                <span class="input-group-btn">
+                    <button type="submit">
+                        <i class="fa fa-search" aria-hidden="true" style="color: #a1afc8;"></i>
+                    </button>
+                </span>
+                <input id="search-type-input" name="search_type" type="hidden" value="booklist"/>
+            </div>
+        </form>
+
+        <ul class="navbar-nav mr-auto nav-ul">
+            {# 显示分类列表 #}
+                <li class="nav-item nav-link-item" style="margin-right: 14px;">
+                    <a class="nav-link" href="{% url 'index' %}" style="color: #66757f;">首页</a>
+                </li>
+                <li class="nav-item nav-link-item" style="margin-right: 14px;">
+                    <a class="nav-link" href="{% url 'find' %}" style="color: #66757f;">发现</a>
+                </li>
+        </ul>
+
+
+        {# 如果用户已经登录, 显示用户名; 否则显示登录/注册 #}
+        {% if request.user.id %}
+            {# 引入用户信息弹出框 #}
+            {% include 'module/dialog/_popover_user.html' %}
+
+            <ul class="navbar-nav nav-ul" style="margin-right: 70px;">
+                <li class="nav-item  nav-link-item">
+                    <a id="usernameElement" class="nav-link" href="javascript: void(0);"
+                       style="color: #66757f; border: none; outline: none;">{{ request.user.nickname }}</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav nav-ul" style="padding-right: 70px;">
+                <li class="nav-item nav-link-item">
+                    <a class="nav-link" id="btn-login" href="javascript: void(0);"
+                       style="color: #66757f; border: none; outline: none;">登录</a>
+                </li>
+                <li class="nav-item nav-link-item li-register">
+                    <a id="btn-register" class="nav-link" href="javascript: void(0);" style="color: #339dc3;">注册</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+
+    {# 阴影效果 #}
+    <div style="position: fixed; top: 53px; right: 0; bottom: 0; left: 0;
+                display: block; float: none; margin: 0; height: 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);">
+    </div>
+</nav>
+
+
+{# 引入登录/注册模态框 #}
+{% include 'module/_login_register.html' %}
+

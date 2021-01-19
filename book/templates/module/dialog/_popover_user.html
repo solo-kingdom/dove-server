@@ -1,0 +1,66 @@
+{# 右上角用户信息弹出框 #}
+
+<style>
+    .popover-user {
+        position: fixed;
+        background-color: white;
+        border: 1px solid #e7eaf1;
+        border-radius: 4px;
+        box-shadow: 0 5px 20px rgba(0,34,77,.1);
+    }
+
+    .popover-user .up-arrow {
+        color: white;
+        font-size: 3rem;
+        margin-top: -15px;
+    }
+
+    .popover-user .menu {
+        padding: 0.5rem 0;
+        display: block;
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Noto Sans CJK SC, WenQuanYi Micro Hei, Arial, sans-serif;
+        font-size: 1rem;
+        color: #262626;
+    }
+
+    .popover-user a {
+        display: block;
+        width: 100%;
+        padding: 5px 20px;
+        text-align: left;
+        cursor: pointer;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        text-decoration: none;
+    }
+
+    .popover-user a:hover {
+        text-decoration: none;
+        background-color: #f5f8fa;
+    }
+
+    .popover-user .font-aws-a {
+        color: #a1afc8;
+    }
+
+</style>
+
+<div id="userPopoverModal" class="popover-user" style="visibility: hidden;">
+    <div class="text-center" style="height: 0;"><i class="fa fa-sort-asc up-arrow" aria-hidden="true"></i></div>
+    <div class="menu">
+        <a href="{% url 'user-page' request.user.id %}">
+            <i class="fa fa-user font-aws-a" aria-hidden="true"></i>
+            <span style="color: #262626; padding: 0 5px;">个人中心</span>
+        </a>
+        <a href="{% url 'user-profile' %}">
+            <i class="fa fa-cog font-aws-a" aria-hidden="true"></i>
+            <span style="color: #262626; padding: 0 5px;">设置</span>
+        </a>
+        <a href="{% url 'logout' %}">
+            <i class="fa fa-sign-out font-aws-a" aria-hidden="true"></i>
+            <span style="color: #262626; padding: 0 5px;">退出</span>
+        </a>
+    </div>
+</div>

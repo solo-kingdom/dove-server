@@ -1,0 +1,81 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <h3 style="color: #aaaaaa;">{{ booktag.name }}</h3>
+                {% if tag_type == 'book' %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="{% url 'tag_with_page' booktag.id 'booklist' 1 %}" class="btn btn-raised btn-default">书单</a>
+                            <a href="javascript:void(0)" class="btn btn-raised active">书籍</a>
+                        </div>
+                    </div>
+                    {% include 'module/_book_list.html' %}
+                {% elif tag_type == 'booklist' %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="javascript:void(0)" class="btn btn-raised active">书单</a>
+                            <a href="{% url 'tag_with_page' booktag.id 'book' 1 %}" class="btn btn-raised btn-default">书籍</a>
+                        </div>
+                    </div>
+                    {% include 'module/_booklist_list.html' %}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    {# 页数大于2才显示分页 #}
+    {% if total_page > 1 %}
+        <div class="container-fluid text-center">
+            {# 分页 #}
+            <div class="center-block">
+                <ul class="pagination pagination-sm">
+                    <li><a href="{% url 'tag_with_page' booktag.id tag_type 1 %}">«</a></li>
+                    {% for page_num in pages %}
+                        {% if page_num == cur_page %}
+                            <li class="active"><a href="{% url 'tag_with_page' booktag.id tag_type page_num %}">{{ page_num }}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'tag_with_page' booktag.id tag_type page_num %}">{{ page_num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{% url 'tag_with_page' booktag.id tag_type total_page %}">»</a></li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <div class="container-fluid text-center">
+            {# 分页 #}
+            <div class="center-block">
+                <div class="clearfix" style="height: 30px;"></div>
+                <p style="color: #aaaaaa;">无更多记录</p>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{#{% block js %}#}
+{#<script>#}
+{#    var search_keyword_input = $('#search-keyword-input');#}
+{#    var search_type_input = $('#search-type-input');#}
+{#    search_keyword_input.attr('value', '{{ search_keyword }}');#}
+{##}
+{#    /**#}
+{#     * 点击 '书单' / '书籍' 搜索#}
+{#     * @param search_type#}
+{#     */#}
+{#    function set_search_type(search_type) {#}
+{#        search_type_input.attr('value', search_type);#}
+{#        search_keyword_input.attr('value', '{{ search_keyword }}');#}
+{#        $('#search-form').submit();#}
+{#    }#}
+{#</script>#}
+{#{% endblock %}#}

@@ -1,0 +1,47 @@
+{% extends "module/base.html" %}
+{% load templatetags %}
+{% load staticfiles %}
+
+{# 设置标题 #}
+{% block title %}{{ title }}{% endblock %}
+
+{# 自定义css #}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'book/css/book-list-item-a.css' %}">
+{% endblock %}
+
+{# 设置body #}
+{% block body %}
+    <div class="container"
+         style="border: solid 1px rgba(232, 237, 241, 1);
+                border-radius: 3px 3px 0 0;
+                background-color: white;
+                max-width: 40rem;
+                margin-top: 1rem;
+                margin-bottom: 3rem;
+                padding: 0;">
+        {# 列表说明 #}
+        <div style="padding: 1rem 1.75rem 0 1.75rem">
+            <p class="no-padding-margin" style="font-size: 1.2rem;">热门标签</p>
+            {% show_tag_list %}
+        </div>
+        <hr>
+
+        {# 书单列表 #}
+        {# module/_booklist_list.html #}
+        {% include page_template %}
+        <p style="width: 100%; text-align: center; color: #aaaaaa; font-size: 0.8rem;">没有更多记录</p>
+    </div>
+
+    {% include "module/dialog/_add_book_to_booklist_modal.html" %}
+
+{% endblock %}
+
+{% block js %}
+    {{ block.super }}   {# 加载父block内容 #}
+    <script src="{% static 'js/lib/el-pagination.js' %}"></script>
+    <script src="{% static 'book/js/add-book-to-booklist.js' %}"></script>
+    <script>
+        $.endlessPaginate({paginateOnScroll: true});
+    </script>
+{% endblock %}

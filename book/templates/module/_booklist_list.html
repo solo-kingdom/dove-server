@@ -1,0 +1,9 @@
+{# 书单列表 #}
+{% load el_pagination_tags %}
+
+{% paginate list %}
+{% for booklist in list %}
+    {% include 'module/_booklist_list_item.html' %}
+{% endfor %}
+
+{% show_more "<div class='text-center align-middle mb-3'><i class='fa fa-spinner fa-spin fa-2x fa-fw' style='color: #259;'></i></div>" "<div class='text-center align-middle mb-3'><i class='fa fa-spinner fa-spin fa-2x fa-fw' style='color: #259;'></i></div>" %}
