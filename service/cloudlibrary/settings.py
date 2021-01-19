@@ -74,24 +74,20 @@ WSGI_APPLICATION = 'cloudlibrary.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-# SQLite
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 # MySQL
 DATABASES = {
-    # local mysql
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cloudlibrary',
-        'USER': 'localhost',
-        'PASSWORD': 'localhost',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     },
+    # local mysql
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'cloudlibrary',
+    #     'USER': 'localhost',
+    #     'PASSWORD': 'localhost',
+    #     'HOST': 'localhost',
+    # },
     # mysql cluster
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
