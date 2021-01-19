@@ -33,3 +33,5 @@ spider/douban/api/sys
 spider/douban/api/threading
 
 .idea
+venv
+.venv

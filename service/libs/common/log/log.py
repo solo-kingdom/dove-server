@@ -12,9 +12,9 @@ class MyLogger(object):
     def __init__(self, log_file_name=None, log_file_path=None):
         # 读取配置文件
         self.config = ConfigParser()
-        log_config_file_path = os.path.join(os.path.dirname(__file__), 'log-config.ini')
+        log_config_file_path = os.path.join(os.path.dirname(__file__), 'log.ini')
         if not os.path.exists(log_config_file_path):
-            print("配置文件 log-config.ini 不存在.")
+            print("配置文件 log.ini 不存在.")
         self.config.read(log_config_file_path)
 
         # 获取日志保存路径
