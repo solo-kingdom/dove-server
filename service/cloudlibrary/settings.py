@@ -76,10 +76,10 @@ WSGI_APPLICATION = 'cloudlibrary.wsgi.application'
 
 # MySQL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # },
     # local mysql
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -89,16 +89,17 @@ DATABASES = {
     #     'HOST': 'localhost',
     # },
     # mysql cluster
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'cloudlibrary',
-    #     'USER': 'cloudlibrary',
-    #     'PASSWORD': 'CloudLibrary123',
-    #     'HOST': '202.118.26.73',
-    #     'OPTIONS': {
-    #         'init_command': 'SET default_storage_engine=ndbcluster',
-    #     }
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cloudlibrary',
+        'USER': 'cloudlibrary',
+        'PASSWORD': 'CloudLibrary123',
+        'HOST': '192.168.6.6'
+        # 'HOST': 'home.wii.pub'
+        #'OPTIONS': {
+        #    'init_command': 'SET default_storage_engine=ndbcluster',
+        #}
+    }
 }
 
 # Password validation

@@ -8,8 +8,8 @@ import urllib.parse
 
 import time
 
-from spider.douban.api.douban_api import get_douban_book_by_url
-from spider.douban.api.save_book_from_api import get_download_pic
+# from spider.douban.api.douban_api import get_douban_book_by_url
+# from spider.douban.api.save_book_from_api import get_download_pic
 
 if os.environ.get("DJANGO_SETTINGS_MODULE") is None:
     import django
@@ -27,7 +27,7 @@ for book in Book.objects.all():
     if len(local_pic_url.split("/")[-1]) == 0:
         try:
             print(book.name, ":", local_pic_url)
-            local_pic_url = get_download_pic(book.info.pic_url)
+            local_pic_url = None # get_download_pic(book.info.pic_url)
             book.pic = local_pic_url
             book.save()
             # time.sleep(3)

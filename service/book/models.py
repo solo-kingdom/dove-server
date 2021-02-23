@@ -58,8 +58,8 @@ class BookTag(models.Model):
 
 class BookTagShip(models.Model):
     """图书 - 标签关联表"""
-    book = models.ForeignKey('Book')
-    tag = models.ForeignKey(BookTag)
+    book = models.ForeignKey('Book', on_delete=models.CASCADE)
+    tag = models.ForeignKey(BookTag, on_delete=models.CASCADE)
     count = models.IntegerField(verbose_name='图书包含标签次数', default=0)
 
     def __str__(self):
@@ -68,8 +68,8 @@ class BookTagShip(models.Model):
 
 class BookListTagShip(models.Model):
     """书单 - 标签关联表"""
-    booklist = models.ForeignKey('BookList')
-    tag = models.ForeignKey(BookTag)
+    booklist = models.ForeignKey('BookList', on_delete=models.CASCADE)
+    tag = models.ForeignKey(BookTag, on_delete=models.CASCADE)
     count = models.IntegerField(verbose_name='书单包含标签次数', default=0)
 
     def __str__(self):
@@ -100,7 +100,7 @@ class BookKeyword(models.Model):
 
 
 class BookRecommend(models.Model):
-    recommend = models.ForeignKey("Book")
+    recommend = models.ForeignKey("Book", on_delete=models.CASCADE)
     rate = models.FloatField("推荐度", default=0.0)
 
 
@@ -145,7 +145,7 @@ class BookList(models.Model):
     books = models.ManyToManyField(Book, blank=True)
     create_date = models.DateTimeField('书单创建时间', default=timezone.now, null=True)
     update_date = models.DateTimeField(verbose_name='最后添加书籍时间', auto_now=True)
-    user = models.ForeignKey(User, null=True, default=1)
+    user = models.ForeignKey(User, null=True, default=1, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

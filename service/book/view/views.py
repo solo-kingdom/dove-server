@@ -12,7 +12,7 @@ from book.models import Book, BookList, BookRemark
 from book.mytools import get_remote_ip
 from book.view.func.modal_utails import trance_authors_to_list, trance_tags_to_list
 # Create your views here.
-from spider.douban.api.douban_api import get_douban_book_by_url
+# from spider.douban.api.douban_api import get_douban_book_by_url
 
 
 @page_template('module/_book_list.html')
@@ -69,7 +69,7 @@ def get_douban_book_from_url(request):
     }
     try:
         _book_url = request.POST.get("url")
-        _book = get_douban_book_by_url(_book_url, use_proxy=False)
+        _book = None #get_douban_book_by_url(_book_url, use_proxy=False)
         if _book is not None and isinstance(_book, Book):
             # 获取成功
 
