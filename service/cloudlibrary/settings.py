@@ -94,11 +94,11 @@ DATABASES = {
         'NAME': 'cloudlibrary',
         'USER': 'cloudlibrary',
         'PASSWORD': 'CloudLibrary123',
-        'HOST': '192.168.6.6'
-        # 'HOST': 'home.wii.pub'
-        #'OPTIONS': {
-        #    'init_command': 'SET default_storage_engine=ndbcluster',
-        #}
+        # 'HOST': '192.168.6.6'
+        'HOST': 'home.wii.pub'
+        # 'OPTIONS': {
+        #     'init_command': 'SET default_storage_engine=ndbcluster',
+        # }
     }
 }
 
