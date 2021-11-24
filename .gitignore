@@ -35,3 +35,5 @@ spider/douban/api/threading
 .idea
 venv
 .venv
+
+.DS_Store
